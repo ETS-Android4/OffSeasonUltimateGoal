@@ -147,7 +147,7 @@ public class T265MecanumDrive extends MecanumDrive {
                 setLocalizer(new T265Localizer(hardwareMap, resett265));
             }
             catch (Exception e) {
-                RobotLog.setGlobalWarningMessage("T265 INIT FAILED", "T265 INIT FAILED");
+                RobotLog.setGlobalErrorMsg("T265 INIT FAILED", "T265 INIT FAILED");
             }
         }
     }
