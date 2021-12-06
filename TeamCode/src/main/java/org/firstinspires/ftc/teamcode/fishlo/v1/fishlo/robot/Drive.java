@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.opmode.AutomaticFeedforwardTuner;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.SubSystem;
 
@@ -45,9 +46,6 @@ public class Drive extends SubSystem {
         backLeft = new Motor(robot.hardwareMap, "backLeft");
         backRight = new Motor(robot.hardwareMap, "backRight");
         claw = robot.hardwareMap.servo.get("claw");
-        xDrive = new HDrive(frontLeft, frontRight, backLeft, backRight);
-
-        robot.telemetry.addLine("Motors initialized");
     }
 
     @Override
@@ -66,7 +64,11 @@ public class Drive extends SubSystem {
         if (robot.gamepad1.a) {
             claw.setPosition(0);
         }
-        xDrive.driveRobotCentric(-robot.gamepad1.left_stick_x, driveSpeed , turnSpeed );
+        mecanumDrive.setWeightedDrivePower(new Pose2d(
+                robot.gamepad1.left_stick_y,
+                -robot.gamepad1.left_stick_x,
+                -robot.gamepad1.right_stick_x
+        ));
 
         robot.telemetry.addData("Drive - Dat - Drive Controls", driveType.name());
         robot.telemetry.addData("Drive - Dat - Drive Speed", driveSpeed);
