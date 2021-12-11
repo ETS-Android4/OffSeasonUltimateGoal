@@ -20,8 +20,6 @@ public class Drive extends SubSystem {
 
     SampleMecanumDrive mecanumDrive = new SampleMecanumDrive(robot.hardwareMap);
 
-    Servo claw;
-
     private enum DriveControls {
         TANK,
         ARCADE
@@ -45,7 +43,6 @@ public class Drive extends SubSystem {
         frontRight = new Motor(robot.hardwareMap, "frontRight");
         backLeft = new Motor(robot.hardwareMap, "backLeft");
         backRight = new Motor(robot.hardwareMap, "backRight");
-        claw = robot.hardwareMap.servo.get("claw");
     }
 
     @Override
@@ -58,12 +55,6 @@ public class Drive extends SubSystem {
         driveIndex = 1;
 
         driveType = driveControls[driveIndex];
-        if (robot.gamepad1.y) {
-            claw.setPosition(0.5);
-        }
-        if (robot.gamepad1.a) {
-            claw.setPosition(0);
-        }
         mecanumDrive.setWeightedDrivePower(new Pose2d(
                 robot.gamepad1.left_stick_y,
                 -robot.gamepad1.left_stick_x,
